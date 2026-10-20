@@ -145,6 +145,11 @@ export const fixtureSource: MarketSource = {
     const { markets, joins, claims } = build();
     return later(rankLeaders(metric, markets, joins.map((j) => ({ marketId: j.marketId, account: j.account, side: j.side, amount: j.amount })), claims));
   },
+  getPosition: async (id, account) => {
+    const all = await fixtureSource.getPositions(account);
+    const p = all.find((x) => x.market.id === id);
+    return p ? { side: p.side, claimed: p.claimed, paid: p.paid, paidTx: p.paidTx, joinTx: p.joinTx } : null;
+  },
   getPositions: (account) => {
     const { markets, joins, claims } = build();
     const mine = joins.filter((j) => j.account.toLowerCase() === account.toLowerCase());

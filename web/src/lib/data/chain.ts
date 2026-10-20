@@ -138,6 +138,24 @@ export const chainSource: MarketSource = {
     return rankLeaders(metric, markets, joins.map((l) => ({ marketId: Number(l.args.marketId), account: l.args.account as Address, side: Number(l.args.side) as Side, amount: l.args.amount as bigint })), claims.map((l) => ({ marketId: Number(l.args.marketId), account: l.args.account as Address, amount: l.args.amount as bigint })));
   },
 
+  async getPosition(id, account) {
+    const [side, claimed] = (await client.readContract({ address: contract(), abi: trueUpAbi, functionName: "positionOf", args: [BigInt(id), account] })) as readonly [number, boolean];
+    if (side !== 1 && side !== 2) return null;
+    const [joins, claims, refunds] = await Promise.all([
+      events("ParticipantJoined", { marketId: BigInt(id), account }),
+      claimed ? events("WinningsClaimed", { marketId: BigInt(id), account }) : Promise.resolve([] as EventLog[]),
+      claimed ? events("StakeRefunded", { marketId: BigInt(id), account }) : Promise.resolve([] as EventLog[]),
+    ]);
+    const paid = [...claims, ...refunds][0];
+    return {
+      side: side as Side,
+      claimed,
+      paid: paid ? (paid.args.amount as bigint) : null,
+      paidTx: paid ? (paid.transactionHash as Hash) : null,
+      joinTx: joins[0] ? (joins[0].transactionHash as Hash) : null,
+    };
+  },
+
   async getPositions(account) {
     const [joins, claims, refunds] = await Promise.all([
       events("ParticipantJoined", { account }),

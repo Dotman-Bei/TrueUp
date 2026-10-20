@@ -19,6 +19,7 @@ export const keys = {
   stats: ["stats"] as const,
   leaders: (m: LeaderMetric) => ["leaders", m] as const,
   positions: (a?: string) => ["positions", a?.toLowerCase()] as const,
+  position: (id: number, a?: string) => ["position", id, a?.toLowerCase()] as const,
 };
 
 export const useMarkets = () => useQuery({ queryKey: keys.markets, queryFn: () => source.listMarkets(), ...live });
@@ -29,6 +30,9 @@ export const useStats = () => useQuery({ queryKey: keys.stats, queryFn: () => so
 export const useLeaders = (m: LeaderMetric) => useQuery({ queryKey: keys.leaders(m), queryFn: () => source.getLeaders(m), ...live });
 export const usePositions = (account?: Address) =>
   useQuery({ queryKey: keys.positions(account), queryFn: () => source.getPositions(account!), enabled: Boolean(account), ...live });
+
+export const usePosition = (id: number, account?: Address) =>
+  useQuery({ queryKey: keys.position(id, account), queryFn: () => source.getPosition(id, account!), enabled: Boolean(account) && id > 0, ...live });
 
 export { NotConfiguredError };
 export * from "./types";

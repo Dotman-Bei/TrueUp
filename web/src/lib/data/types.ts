@@ -71,6 +71,15 @@ export type Position = {
   paidTx: Hash | null;
 };
 
+/** One wallet's stake in one market, with its payout if it has been claimed or refunded */
+export type WalletPosition = {
+  side: Side;
+  claimed: boolean;
+  paid: bigint | null;
+  paidTx: Hash | null;
+  joinTx: Hash | null;
+};
+
 export interface MarketSource {
   readonly kind: "chain" | "fixtures";
   listMarkets(): Promise<Market[]>;
@@ -79,6 +88,7 @@ export interface MarketSource {
   getStats(): Promise<Stats>;
   getLeaders(metric: LeaderMetric): Promise<LeaderRow[]>;
   getPositions(account: Address): Promise<Position[]>;
+  getPosition(id: number, account: Address): Promise<WalletPosition | null>;
 }
 
 export class NotConfiguredError extends Error {

@@ -219,13 +219,6 @@
 [data-ui] .pill--positive { background: var(--pill-positive-bg); color: var(--positive); }
 [data-ui] .pill--neutral { background: var(--pill-neutral-bg); color: var(--text); }
 
-/* The rope (shared with the app) */
-.rope { position: relative; display: flex; gap: 2px; height: 8px; margin-top: 14px; }
-.rope__a { background: var(--rope-a, var(--side-a)); transition: width var(--t-ui) var(--ease-out); }
-.rope__b { background: var(--rope-b, var(--side-b)); transition: width var(--t-ui) var(--ease-out); }
-.rope[data-empty="true"] .rope__a, .rope[data-empty="true"] .rope__b { opacity: 0.25; }
-.rope__flag { position: absolute; bottom: 0; transform: translateX(-1px); fill: var(--rope-flag, var(--side-b)); transition: left var(--t-ui) var(--ease-out); }
-
 /* ---------- 3. open right now ---------- */
 .open-now { margin-top: calc(var(--section) / 2); }
 .open-now__stage { padding: calc(var(--section) / 2) var(--margin); }

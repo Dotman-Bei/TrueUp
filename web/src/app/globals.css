@@ -87,6 +87,13 @@ p { text-wrap: pretty; }
 .nums { font-variant-numeric: tabular-nums; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
+/* The rope (shared with the app) */
+.rope { position: relative; display: flex; gap: 2px; height: 8px; margin-top: 14px; }
+.rope__a { background: var(--rope-a, var(--side-a)); transition: width var(--t-ui) var(--ease-out); }
+.rope__b { background: var(--rope-b, var(--side-b)); transition: width var(--t-ui) var(--ease-out); }
+.rope[data-empty="true"] .rope__a, .rope[data-empty="true"] .rope__b { opacity: 0.25; }
+.rope__flag { position: absolute; bottom: 0; transform: translateX(-1px); fill: var(--rope-flag, var(--side-b)); transition: left var(--t-ui) var(--ease-out); }
+
 /* development-only notice: shown whenever fixture data is on screen */
 .fixture-notice {
   padding: 7px var(--margin);
