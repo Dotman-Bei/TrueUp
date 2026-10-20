@@ -3,13 +3,13 @@
   /* page: the walnut table, the bone slip, one tan accent */
   --bg: #2b2216;
   --surface: #382d1e;
-  --ink: #e4e2da;
+  --ink: #e6e4df;
   --muted: #a39a8b;
   --accent: #bda38b;
   --accent-strong: #cdb59e;
   --accent-ink: #2b2216;
-  --paper: #e4e2da;
-  --paper-2: #d6cbbd;
+  --paper: #e6e4df;
+  --paper-2: #d7cfc5;
   --paper-ink: #2b2216;
   --paper-muted: #5c4f3e;
   --field-1: #bda38b;
@@ -22,13 +22,13 @@
   --raised: #3d3122;
   --rule: #3a2e20;
   --control: #6a5a45;
-  --text: #ece9e1;
+  --text: #eceae6;
   --app-muted: #c2b8a6;
   --faint: #ab9f8b;
-  --primary: #ece9e1;
+  --primary: #eceae6;
   --primary-hover: #ffffff;
   --primary-ink: #241c12;
-  --side-a: #ece9e1;
+  --side-a: #eceae6;
   --side-b: #bda38b;
   --positive: #a8cf8e;
   --pill-positive-bg: #2c3520;
