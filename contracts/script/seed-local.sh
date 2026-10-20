@@ -26,7 +26,7 @@ send() { local key=$1; shift; cast send --rpc-url "$RPC" --private-key "$key" "$
 now() { cast block latest --rpc-url "$RPC" --field timestamp; }
 
 OWNER=$(addr "${K[0]}")
-OUT=$(OWNER=$OWNER forge script script/Deploy.s.sol --rpc-url "$RPC" --private-key "${K[0]}" --broadcast 2>&1)
+OUT=$(PRIVATE_KEY=${K[0]} OWNER=$OWNER forge script script/Deploy.s.sol --rpc-url "$RPC" --private-key "${K[0]}" --broadcast 2>&1)
 T=$(echo "$OUT" | grep "TrueUp deployed at" | awk '{print $NF}')
 BLOCK=$(echo "$OUT" | grep "deploy block" | awk '{print $NF}')
 echo "TrueUp at $T (block $BLOCK)"

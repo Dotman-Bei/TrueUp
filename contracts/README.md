@@ -45,15 +45,16 @@ Bohr testnet is chain 968 (`https://rpc.bohr.life`, explorer `https://scan.bohr.
 `https://faucet.botchain.ai/basic`); mainnet is chain 677. Check them again before every deploy.
 The contract is compiled for the `paris` EVM so it runs on any EVM chain.
 
-```bash
-# once: store the deployer key in an encrypted Foundry keystore (never in a file or on the command line)
-cast wallet import trueup-deployer --interactive
+Put the deployer's private key and the owner address in `contracts/.env` (copied from
+`.env.example`; git ignores it). Use a wallet that only holds test BOT.
 
-# Bohr testnet, verified on its Blockscout explorer
-OWNER=0xYourOwnerAddress forge script script/Deploy.s.sol \
-  --rpc-url bohr --account trueup-deployer --broadcast \
-  --verify --verifier blockscout --verifier-url https://scan.bohr.life/api/
+```bash
+cd contracts
+forge script script/Deploy.s.sol --rpc-url bohr --broadcast   --verify --verifier blockscout --verifier-url https://scan.bohr.life/api/
 ```
+
+If you'd rather not keep a key in a file, leave `PRIVATE_KEY` empty, run
+`cast wallet import trueup-deployer --interactive` once, and add `--account trueup-deployer` to the command.
 
 `FEE_BPS` (default 10) and `MAX_STAKE` (wei, default 100 BOT) are optional. The script refuses any chain
 other than 968, 677 and a local node. It prints the address and deploy block for the web app's

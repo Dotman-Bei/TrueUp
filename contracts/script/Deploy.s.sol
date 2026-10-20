@@ -10,10 +10,11 @@ import {TrueUp} from "../src/TrueUp.sol";
 ///   FEE_BPS    fee for new markets in basis points, default 10 (0.1%), max 500
 ///   MAX_STAKE  largest stake a new market may set, in wei, default 100 BOT
 ///
-/// Bohr testnet (chain 968):
-///   forge script script/Deploy.s.sol --rpc-url bohr --account <keystore-name> --broadcast --verify
-/// Never pass a raw private key on the command line or commit one; use a Foundry keystore
-/// (`cast wallet import <name> --interactive`).
+/// Bohr testnet (chain 968), with PRIVATE_KEY and OWNER in contracts/.env (git-ignored):
+///   forge script script/Deploy.s.sol --rpc-url bohr --broadcast
+/// or with an encrypted Foundry keystore instead of a key in .env:
+///   forge script script/Deploy.s.sol --rpc-url bohr --account <keystore-name> --broadcast
+/// Never commit a key or pass one on the command line.
 contract Deploy is Script {
     function run() external returns (TrueUp trueUp) {
         // Refuse anything but the two BOT Chain networks and a local node, so a mis-set RPC can't
@@ -27,7 +28,10 @@ contract Deploy is Script {
         uint16 feeBps = uint16(rawFee); // checked above
         uint256 maxStake = vm.envOr("MAX_STAKE", uint256(100 ether));
 
-        vm.startBroadcast();
+        // Sign with PRIVATE_KEY from contracts/.env when it is set; otherwise with --account / --private-key.
+        uint256 key = vm.envOr("PRIVATE_KEY", uint256(0));
+        if (key != 0) vm.startBroadcast(key);
+        else vm.startBroadcast();
         trueUp = new TrueUp(owner, feeBps, maxStake);
         vm.stopBroadcast();
 
