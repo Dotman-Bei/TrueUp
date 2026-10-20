@@ -16,3 +16,8 @@ line_length = 120
 [lint]
 # Deadlines are hours to weeks apart; a validator's few seconds of timestamp drift cannot change an outcome.
 exclude_lints = ["block-timestamp"]
+
+[rpc_endpoints]
+bohr = "https://rpc.bohr.life"
+botchain = "https://rpc.botchain.ai"
+local = "http://127.0.0.1:8545"
