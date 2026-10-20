@@ -9,3 +9,6 @@ out/
 *.log
 *.tsbuildinfo
 next-env.d.ts
+
+# raw downloads from the open archives; the copies in use live in web/public/archive
+assets/
