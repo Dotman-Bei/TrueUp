@@ -240,6 +240,49 @@ button.stub-btn:not(:disabled):active { transform: scale(0.99); }
   .mtable__line { display: block !important; margin-top: 8px; color: var(--app-muted); font-size: 13px; }
 }
 
+/* ---------- create ---------- */
+.create { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--gap); align-items: start; }
+.create__form { display: grid; gap: 22px; }
+.create__side { position: sticky; top: 80px; display: grid; gap: var(--gap); }
+.field { display: grid; gap: 8px; min-width: 0; margin: 0; padding: 0; border: 0; }
+.field label, .field legend { font-weight: 500; padding: 0; }
+.field legend { margin-bottom: 8px; }
+.field__top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.field__pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.counter { color: var(--faint); font-size: 12px; }
+.counter--over { color: var(--negative); }
+.field input, .field textarea, .linkbox input {
+  width: 100%; min-height: 40px; padding: 9px 12px; border: 1px solid var(--control); border-radius: var(--radius);
+  background: var(--ground); color: var(--text); font: inherit; resize: vertical;
+}
+.field input::placeholder, .field textarea::placeholder { color: var(--faint); }
+.field input:focus, .field textarea:focus { outline: none; border-color: var(--text); }
+.field [aria-invalid="true"] { border-color: var(--negative); }
+.field textarea { font-size: 16px; line-height: 22px; }
+.field__hint { color: var(--app-muted); font-size: 13px; }
+.field__error { color: var(--negative); font-size: 13px; }
+.suffix { display: flex; align-items: stretch; }
+.suffix input { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.suffix span { display: grid; place-items: center; padding: 0 12px; border: 1px solid var(--control); border-left: 0; border-radius: 0 var(--radius) var(--radius) 0; color: var(--app-muted); }
+.chips-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip-btn { height: 36px; padding: 0 14px; border: 1px solid var(--control); border-radius: var(--radius); color: var(--text); transition: background-color var(--t-hover) ease; }
+.chip-btn:hover { background: var(--raised); }
+.chip-btn[aria-pressed="true"] { background: var(--primary); color: var(--primary-ink); border-color: transparent; }
+.create__q { font-size: 28px; line-height: 32px; font-weight: 600; letter-spacing: -0.02em; overflow-wrap: anywhere; }
+.create__preview .stub-btn__name { overflow-wrap: anywhere; }
+.create__terms { display: grid; gap: 8px; margin: 10px 0 0; padding-left: 18px; color: var(--app-muted); }
+.created { max-width: 640px; }
+.created h1 { font-size: 24px; line-height: 30px; font-weight: 600; }
+.linkbox { display: flex; margin-top: 16px; }
+.linkbox input { border-radius: var(--radius) 0 0 var(--radius); min-width: 0; }
+.linkbox .btn { height: 40px; border-radius: 0 var(--radius) var(--radius) 0; }
+.created__actions { display: flex; align-items: center; gap: 16px; margin-top: 16px; }
+@media (max-width: 1000px) {
+  .create { grid-template-columns: minmax(0, 1fr); }
+  .create__side { position: static; }
+}
+@media (max-width: 520px) { .field__pair { grid-template-columns: 1fr; } .create__q { font-size: 22px; line-height: 28px; } }
+
 /* ---------- phone and tablet: the sidebar folds into a bottom bar ---------- */
 .bottombar { display: none; }
 @media (max-width: 860px) {
