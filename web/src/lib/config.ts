@@ -24,13 +24,28 @@ export const botMainnet = defineChain({
   blockExplorers: { default: { name: "BOT scan", url: "https://scan.botchain.ai" } },
 });
 
-export type NetworkKey = "bohr" | "mainnet";
+/** Development only: a local Anvil node, for running the real contract before testnet. */
+export const localNode = defineChain({
+  id: 31337,
+  name: "Local node",
+  nativeCurrency: { name: "BOT", symbol: "BOT", decimals: 18 },
+  rpcUrls: { default: { http: [process.env.NEXT_PUBLIC_LOCAL_RPC || "http://127.0.0.1:8545"] } },
+  blockExplorers: { default: { name: "none", url: "https://scan.bohr.life" } },
+  testnet: true,
+});
 
-const networkKey: NetworkKey = process.env.NEXT_PUBLIC_NETWORK === "mainnet" ? "mainnet" : "bohr";
+export type NetworkKey = "bohr" | "mainnet" | "local";
+
+const requested = process.env.NEXT_PUBLIC_NETWORK;
+if (requested === "local" && process.env.NODE_ENV === "production") {
+  throw new Error("NEXT_PUBLIC_NETWORK=local is for development only.");
+}
+const networkKey: NetworkKey = requested === "mainnet" ? "mainnet" : requested === "local" ? "local" : "bohr";
 
 const contracts: Record<NetworkKey, string | undefined> = {
   bohr: process.env.NEXT_PUBLIC_BOHR_CONTRACT,
   mainnet: process.env.NEXT_PUBLIC_MAINNET_CONTRACT,
+  local: process.env.NEXT_PUBLIC_LOCAL_CONTRACT,
 };
 
 function asAddress(value: string | undefined): Address | null {
@@ -39,11 +54,11 @@ function asAddress(value: string | undefined): Address | null {
 
 export const network = {
   key: networkKey,
-  chain: networkKey === "mainnet" ? botMainnet : bohrTestnet,
+  chain: networkKey === "mainnet" ? botMainnet : networkKey === "local" ? localNode : bohrTestnet,
   contract: asAddress(contracts[networkKey]),
-  isTestnet: networkKey === "bohr",
+  isTestnet: networkKey !== "mainnet",
   /** Short name used in copy: "Bohr testnet" / "BOT Chain" */
-  label: networkKey === "mainnet" ? "BOT Chain" : "Bohr testnet",
+  label: networkKey === "mainnet" ? "BOT Chain" : networkKey === "local" ? "a local node" : "Bohr testnet",
 };
 
 /** Proposed default fee (PRD 6.10). The live value is read from each market, captured at creation. */
@@ -55,6 +70,9 @@ export const SETTLEMENT_TIMEOUT_SECONDS = 72 * 60 * 60;
 export const LIMITS = {
   question: 140,
   option: 48,
+  /** the contract's limits are in UTF-8 bytes */
+  questionBytes: 280,
+  optionBytes: 96,
   minStake: "0.001",
   maxStake: "100",
   minDurationSeconds: 60 * 60,

@@ -132,7 +132,7 @@ export function SplitPot() {
               <Row k="Winners" v={String(s.winners)} />
               <Row k="Each winner" v={formatBot(s.each, 6)} />
               <Row k="Net gain per winner" v={formatBot(s.each - stake, 6, { sign: true })} />
-              {s.dust > 0n && <Row k="Rounding remainder" v={`${s.dust} wei`} />}
+              {s.dust > 0n && <Row k="Rounding remainder, to the fee" v={`${s.dust} wei`} />}
             </>
           )}
         </dl>

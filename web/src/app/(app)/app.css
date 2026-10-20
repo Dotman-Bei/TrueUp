@@ -352,6 +352,7 @@ button.stub-btn:not(:disabled):active { transform: scale(0.99); }
   .sidebar { display: none; }
   .topbar { height: 56px; gap: 12px; }
   .topbar__brand { display: inline-flex; }
+  .topbar__object { display: none; }
   .topbar__wallet { padding-right: 16px; border-left: 0; padding-left: 0; }
   .wallet__balance, .wallet__hint { display: none; }
   .canvas { padding: 16px 16px 96px; }

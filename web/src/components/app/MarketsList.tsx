@@ -69,6 +69,7 @@ export function MarketsList() {
     return list;
   }, [withPhase, tab, query, sort]);
 
+  const ready = markets.isSuccess && now !== null;
   const sub =
     counts.all === 0
       ? `Markets on ${network.label}`
@@ -193,14 +194,12 @@ export function MarketsList() {
           {TABS.map((t) => (
             <button key={t.key} type="button" role="tab" aria-selected={tab === t.key} onClick={() => { setTab(t.key); setLimit(PAGE); }}>
               {t.label}
-              <span className="count nums">{counts[t.key]}</span>
+              {ready && <span className="count nums">{counts[t.key]}</span>}
             </button>
           ))}
         </div>
         <div className="toolbar">
-          <span className="muted nums">
-            {rows.length} {rows.length === 1 ? "market" : "markets"}
-          </span>
+          <span className="muted nums">{ready ? `${rows.length} ${rows.length === 1 ? "market" : "markets"}` : " "}</span>
           <label className="sort">
             <span className="muted">Sort</span>
             <select value={sort} onChange={(e) => setSort(e.target.value as Sort)}>

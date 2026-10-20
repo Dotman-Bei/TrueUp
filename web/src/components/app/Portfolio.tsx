@@ -190,7 +190,7 @@ export function Portfolio() {
                 ))}
               </ul>
             )}
-            {isFixture && <p className="faint" style={{ marginTop: 10 }}>Viewing the fixture wallet; claims are switched off.</p>}
+            {isFixture && <p className="faint" style={{ marginTop: 10 }}>Viewing this address without its wallet, so claims are switched off.</p>}
             {!isFixture && !wallet.connected && needs.length > 0 && <p className="faint" style={{ marginTop: 10 }}>Connect this wallet to claim.</p>}
           </section>
 

@@ -21,12 +21,39 @@ type Call = {
   value?: bigint;
 };
 
+/** The contract's custom errors in words people use. */
+const REASONS: Record<string, string> = {
+  WrongStake: "The stake has to be exactly the market's amount.",
+  EntriesClosed: "Entries have closed for this market.",
+  AlreadyJoined: "This wallet already has a side in this market.",
+  MarketNotOpen: "This market has already been settled or refunded.",
+  NotCreator: "Only the market's creator can confirm the result.",
+  TooEarly: "The deadline hasn't passed yet.",
+  SettlementWindowOver: "The 72-hour window to settle has passed. Refunds can be opened instead.",
+  OneSidedMarket: "Nobody took the other side, so this market can only be refunded.",
+  RefundsNotAvailable: "Refunds aren't available yet.",
+  NotResolved: "This market hasn't been settled.",
+  NotRefundable: "This market isn't refundable.",
+  NotAWinner: "This wallet wasn't on the winning side.",
+  NotParticipant: "This wallet isn't in this market.",
+  AlreadyClaimed: "Already claimed. Check your wallet's history.",
+  InvalidText: "The question or a side is empty or too long.",
+  SameOptions: "The two sides have to say different things.",
+  StakeOutOfRange: "That stake is outside the allowed range.",
+  DeadlineOutOfRange: "The deadline must be between 1 hour and 30 days away.",
+  UnknownMarket: "There's no market with that number.",
+  TransferFailed: "The payout couldn't be sent to this address.",
+};
+
 /** Plain-language reason for a failed write. Never shows a pending transaction as done. */
 export function explain(error: unknown): string {
   if (error instanceof BaseError) {
     if (error.walk((e) => e instanceof UserRejectedRequestError)) return "Rejected in your wallet. Nothing was sent.";
     const revert = error.walk((e) => e instanceof ContractFunctionRevertedError) as ContractFunctionRevertedError | null;
-    if (revert) return `The contract refused it: ${revert.reason ?? revert.data?.errorName ?? "no reason given"}.`;
+    if (revert) {
+      const name = revert.data?.errorName;
+      return (name && REASONS[name]) || `The contract refused it: ${revert.reason ?? name ?? "no reason given"}.`;
+    }
     if (/insufficient funds/i.test(error.message)) return "Not enough BOT for this and its gas.";
     if (/chain/i.test(error.shortMessage) && /mismatch|switch/i.test(error.shortMessage)) return `Switch your wallet to ${network.label} and try again.`;
     return error.shortMessage || "Couldn't reach BOT Chain. Nothing changed; try again.";

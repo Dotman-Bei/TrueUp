@@ -44,7 +44,8 @@ export type Split = {
 /**
  * The settlement arithmetic the contract performs (PRD 6.9, 6.10, 6.8):
  * pot = stake × participants; fee = pot × feeBps / 10 000 on settled pools only;
- * each winner = floor(distributable / winners); a pool with an empty side is refunded with no fee.
+ * each winner = floor(distributable / winners); the remainder (dust, under `winners` wei) joins the fee;
+ * a pool with an empty side is refunded with no fee.
  */
 export function computeSplit(stake: bigint, countA: number, countB: number, winningSide: 1 | 2, feeBps: number): Split {
   const pot = stake * BigInt(countA + countB);

@@ -24,6 +24,7 @@ const PRESETS = [
 type DeadlineKey = (typeof PRESETS)[number]["key"] | "custom";
 
 const norm = (s: string) => s.trim().toLowerCase().replace(/\s+/g, " ");
+const bytes = (s: string) => new TextEncoder().encode(s.trim()).length;
 
 function Counter({ value, max }: { value: string; max: number }) {
   const left = max - value.length;
@@ -64,10 +65,11 @@ export function CreateMarket() {
     const e: Partial<Record<"question" | "a" | "b" | "stake" | "deadline", string>> = {};
     if (!question.trim()) e.question = "Write the question people will bet on.";
     else if (question.length > LIMITS.question) e.question = `Keep it to ${LIMITS.question} characters.`;
+    else if (bytes(question) > LIMITS.questionBytes) e.question = "Too long once emoji and accents are counted. Shorten it a little.";
     if (!optionA.trim()) e.a = "Name the first side.";
-    else if (optionA.length > LIMITS.option) e.a = `Keep it to ${LIMITS.option} characters.`;
+    else if (optionA.length > LIMITS.option || bytes(optionA) > LIMITS.optionBytes) e.a = `Keep it to ${LIMITS.option} characters.`;
     if (!optionB.trim()) e.b = "Name the second side.";
-    else if (optionB.length > LIMITS.option) e.b = `Keep it to ${LIMITS.option} characters.`;
+    else if (optionB.length > LIMITS.option || bytes(optionB) > LIMITS.optionBytes) e.b = `Keep it to ${LIMITS.option} characters.`;
     else if (optionA.trim() && norm(optionA) === norm(optionB)) e.b = "The two sides have to say different things.";
     const min = parseBot(LIMITS.minStake)!;
     const max = parseBot(LIMITS.maxStake)!;
