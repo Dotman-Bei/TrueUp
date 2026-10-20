@@ -80,9 +80,18 @@ async function readMarket(id: number): Promise<Market | null> {
 /** Decoded event args are read by name below; the event name decides which fields exist. */
 type EventLog = Log & { args: Record<string, unknown> };
 
+/** Bohr makes a block about every 0.7 s; scans run in windows of this many blocks so RPC range limits never bite. */
+const WINDOW = 1_000_000n;
+
 async function events(name: "ParticipantJoined" | "MarketSettled" | "RefundsOpened" | "WinningsClaimed" | "StakeRefunded", args?: Record<string, unknown>) {
-  const logs = await client.getContractEvents({ address: contract(), abi: trueUpAbi, eventName: name, args: args as never, fromBlock, toBlock: "latest" });
-  return logs as unknown as EventLog[];
+  const address = contract();
+  const latest = await client.getBlockNumber();
+  const ranges: [bigint, bigint][] = [];
+  for (let start = fromBlock; start <= latest; start += WINDOW) ranges.push([start, start + WINDOW - 1n < latest ? start + WINDOW - 1n : latest]);
+  const pages = await Promise.all(
+    ranges.map(([from, to]) => client.getContractEvents({ address, abi: trueUpAbi, eventName: name, args: args as never, fromBlock: from, toBlock: to })),
+  );
+  return pages.flat() as unknown as EventLog[];
 }
 
 async function blockTimes(logs: Log[]): Promise<Map<bigint, number>> {
