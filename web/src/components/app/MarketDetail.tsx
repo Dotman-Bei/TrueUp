@@ -517,16 +517,23 @@ export function MarketDetail({ id }: { id: number }) {
         </p>
       </div>
     );
-  } else if (market.error instanceof NotConfiguredError) {
-    body = <p className="empty">The TrueUp contract isn&rsquo;t deployed on {network.label} yet, so there are no markets to show.</p>;
   } else if (market.error) {
     body = (
-      <p className="empty">
-        Couldn&rsquo;t reach BOT Chain to load this market.{" "}
-        <button type="button" className="text-action" onClick={() => market.refetch()}>
-          Retry
-        </button>
-      </p>
+      <div className="panel" style={{ maxWidth: 560 }}>
+        <h1 style={{ fontSize: 24, lineHeight: "30px", fontWeight: 600 }}>Market #{id}</h1>
+        {market.error instanceof NotConfiguredError ? (
+          <p className="muted" style={{ marginTop: 8 }}>
+            The TrueUp contract isn&rsquo;t deployed on {network.label} yet, so this link can&rsquo;t open a market. Once it is live, the question, both sides and the pool will show here.
+          </p>
+        ) : (
+          <p className="muted" style={{ marginTop: 8 }}>
+            Couldn&rsquo;t reach BOT Chain to load this market. Nothing has changed on-chain.{" "}
+            <button type="button" className="text-action" onClick={() => market.refetch()}>
+              Retry
+            </button>
+          </p>
+        )}
+      </div>
     );
   } else if (!market.data || now === null) {
     body = (

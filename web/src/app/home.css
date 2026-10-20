@@ -248,7 +248,13 @@
   overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: var(--step-body); font-weight: 500;
 }
 .deck-card__foot a { font-weight: 600; text-underline-offset: 0.2em; }
-.deck-note { margin-top: 40px; font-size: var(--step-lead); max-width: 32ch; }
+.deck-empty {
+  display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 16px 48px; align-items: end;
+  margin-top: 48px; padding: 40px; min-height: 240px;
+  background: var(--paper); color: var(--paper-ink);
+}
+.deck-empty__title { font-size: var(--step-lead); line-height: 1.25; font-weight: 600; letter-spacing: -0.02em; max-width: 30ch; }
+@media (max-width: 760px) { .deck-empty { grid-template-columns: 1fr; padding: 24px 20px; min-height: 0; } }
 .open-now__totals { margin-top: 48px; }
 @media (max-width: 760px) {
   .open-now__heading { font-size: 10vw; }

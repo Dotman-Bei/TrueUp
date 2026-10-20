@@ -153,7 +153,7 @@ export default function Home() {
       {/* 5. Fair questions */}
       <section id="questions" className="faq" aria-labelledby="faq-title">
         <div className="faq__side">
-          <h2 id="faq-title" className="section-heading" data-reveal>
+          <h2 id="faq-title" className="section-heading">
             Fair questions
           </h2>
           <figure className="faq__photo photo" data-reveal>

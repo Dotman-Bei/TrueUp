@@ -86,26 +86,36 @@ export function OpenNow() {
 
   let body: React.ReactNode;
   if (markets.error instanceof NotConfiguredError) {
-    body = <p className="deck-note">Markets appear here once the TrueUp contract is live on {network.label}.</p>;
+    body = (
+      <div className="deck-empty">
+        <p className="deck-empty__title">Markets appear here once the TrueUp contract is live on {network.label}.</p>
+        <p>Every open market will show its question, both sides, the pool and the time left, straight from the contract.</p>
+      </div>
+    );
   } else if (markets.error) {
     body = (
-      <p className="deck-note">
-        Couldn&rsquo;t reach BOT Chain.{" "}
-        <button className="text-button" type="button" onClick={() => markets.refetch()}>
-          Retry
-        </button>
-      </p>
+      <div className="deck-empty">
+        <p className="deck-empty__title">Couldn&rsquo;t reach BOT Chain.</p>
+        <p>
+          The open markets will show again once the network answers.{" "}
+          <button className="text-button" type="button" onClick={() => markets.refetch()}>
+            Retry
+          </button>
+        </p>
+      </div>
     );
   } else if (markets.isLoading || now === null) {
     body = <div className="deck deck--loading" aria-busy="true" aria-label="Loading open markets" />;
   } else if (open.length === 0) {
     body = (
-      <p className="deck-note">
-        Nobody has an open question right now.{" "}
-        <Link className="text-link" href="/create">
-          Create a market
-        </Link>
-      </p>
+      <div className="deck-empty">
+        <p className="deck-empty__title">Nobody has an open question right now.</p>
+        <p>
+          <Link className="button button--ink" href="/create">
+            Create a market
+          </Link>
+        </p>
+      </div>
     );
   } else if (pinned) {
     body = (
