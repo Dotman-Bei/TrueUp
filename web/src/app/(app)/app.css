@@ -326,6 +326,25 @@ button.stub-btn:not(:disabled):active { transform: scale(0.99); }
   .htable td:nth-child(5) { display: block; grid-row: 2; grid-column: 2; text-align: right; }
 }
 
+/* ---------- leaders ---------- */
+.lgrid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: var(--gap); align-items: start; margin-top: var(--gap); }
+.ldef { margin-bottom: 8px; max-width: 64ch; }
+.lyou { margin: 12px 0 4px; padding: 10px 12px; border-radius: var(--radius); background: var(--raised); }
+.ltable { width: 100%; border-collapse: collapse; margin-top: 8px; }
+.ltable th { height: 36px; padding: 0 16px 0 0; text-align: left; font-weight: 400; font-size: 12px; color: var(--app-muted); }
+.ltable td { height: 48px; padding: 0 16px 0 0; border-top: 1px solid var(--rule); white-space: nowrap; }
+.ltable th:last-child, .ltable td:last-child { padding-right: 0; }
+.ltable .n { text-align: right; }
+.ltable__rank { width: 40px; padding-right: 16px !important; text-align: right !important; color: var(--app-muted); }
+.ltable__value { font-size: 16px; font-weight: 600; }
+.ltable a { color: var(--text); text-decoration: underline; text-decoration-color: var(--control); text-underline-offset: 3px; }
+.ltable tr[aria-current="true"] td { background: var(--raised); }
+.ldefs { display: grid; gap: 14px; margin: 12px 0 0; }
+.lgrid > aside { position: sticky; top: 80px; }
+.ldefs dt { font-weight: 500; }
+.ldefs dd { margin: 2px 0 0; }
+@media (max-width: 1000px) { .lgrid { grid-template-columns: minmax(0, 1fr); } .lgrid > aside { position: static; } }
+
 /* ---------- phone and tablet: the sidebar folds into a bottom bar ---------- */
 .bottombar { display: none; }
 @media (max-width: 860px) {
