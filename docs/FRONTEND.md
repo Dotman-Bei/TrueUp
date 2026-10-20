@@ -148,6 +148,9 @@ A 4px base: `4 8 12 16 24 32 48 64 96 128 192`.
   status changing.
 - Every move has a `prefers-reduced-motion` fallback that keeps the final state. Content is visible
   without JavaScript: hidden states apply only under `html.js`.
+- No video. The open archives only had modern colour tug-of-war footage of identifiable people, which
+  doesn't fit the 1904 set. The moving picture is the hero photograph instead: it settles on load and
+  drifts with the scroll.
 
 ---
 
@@ -160,7 +163,8 @@ All financial figures come from the contract or its events. When the contract ad
 configured, every data block shows its frame and one honest sentence. It never shows numbers. A
 development-only fixture source (`NEXT_PUBLIC_DATA_SOURCE=fixtures`, refused in production builds) exists so
 layouts can be checked at real density. It prints a permanent notice: "Fixture data for layout checks.
-Nothing here is on-chain."
+Nothing here is on-chain." In fixture mode only, adding `?as=fixture` to a URL shows the fixture
+wallet's view (positions, claims, rank) without a connected wallet, and transactions stay off.
 
 ### 3.1 Home `/`
 
@@ -232,9 +236,9 @@ foot *Closes in 2 d 4 h* with *Open market* on the right. Under the band is a li
 
 **Section 4. Total and its receipt: "Split the pot"** (the live thing)
 Note: *Set the stake and how your group splits. The receipt uses the contract's own arithmetic.*
-Controls: stake (0.05 / 0.1 / 0.2 / 0.5 / 1 BOT), *On “She finishes”* stepper, *On “She does not
-finish”* stepper, and *Who won?* (She finishes / She does not finish). The giant figure is each
-winner's payout (*0.3497*). Caption: *BOT to each of 4 winners, from a 1.40 BOT pot.*
+Controls: stake (0.05 / 0.1 / 0.2 / 0.5 / 1 BOT), a *She finishes* stepper and a *She does not
+finish* stepper. Who won is picked on the receipt itself, in its *Winning side* row. The giant figure
+is each winner's payout, rounded down to 4 decimals (*0.3496*). The receipt shows all 6 (*0.349650*). Caption: *BOT to each of 4 winners, from a 1.40 BOT pot.*
 Receipt rows:
 - **Stakes**: She finishes · 4 × 0.2 → 0.8000; She does not finish · 3 × 0.2 → 0.6000; Pot → 1.4000
 - **Settlement**: Protocol fee 0.1% → −0.0014; Distributable → 1.3986
@@ -308,7 +312,10 @@ Ruled T-frame on one walnut ground:
   3 people, 0.60 BOT*.
 - **The rope:** a full-width split bar under the stubs, with *1.40 BOT in the pool · fee 0.1% (captured
   at creation)*.
-- **The action panel** (right column on desktop, directly under the slip on phones) changes with state:
+- **Layout:** two stacks. The slip and *Who's in* are on the left (2fr). The action panel, *Who decides*
+  and *Terms* are on the right (1fr). Below 1100px it becomes one column, with the action panel
+  directly under the slip.
+- **The action panel** changes with state. Its confirm step is inline on every width, never a modal:
   - Open, not joined: choose a stub, then the **confirm sheet** with: *You stake exactly 0.2 BOT on
     “She finishes”. Pool now 1.40 BOT. If your side wins you share the pot minus 0.1%. If it loses, your
     stake goes to the winners. The creator, 0x3f…9a2c, decides the result after Sat 18:00 UTC. If they
@@ -326,7 +333,8 @@ Ruled T-frame on one walnut ground:
     → *Confirmed* (receipt row), or *Rejected in wallet* / *Reverted: {reason}* / *Not enough BOT for
     stake and gas*.
 - **Terms card:** stake, deadline, settlement timeout (72 h), fee bps, creator, contract, market ID.
-- **Participants:** wallet, side, time and join-transaction link. Capped at 8 rows, then *Show all 23*.
+- **Who's in:** wallet, side, stake, and the join time linked to its transaction. Capped at 6 rows,
+  then *Show all 23*. On phones these become two-line rows.
 - Not found: *There's no market #4410 on this contract. Check the link, or browse open markets.*
 
 ### 3.4 Markets `/markets`
@@ -362,8 +370,9 @@ Ruled T-frame on one walnut ground:
 **Question:** *Is there anything for me to claim?*
 - Not connected: frame kept, *Connect a wallet to see your positions*, with the primary button.
 - h1 *Portfolio*, with the address and *View on explorer*.
-- Lead figure (32px): **Claimable now: 0.749300 BOT**, with the subline *from 2 markets* and a
-  **Claim all** queue (one transaction per market, done in turn).
+- Lead figure (32px): **Claimable now: 0.749300 BOT**, with the subline *From 2 markets. Each one is
+  its own claim.* Each market in *Needs action* has its own Claim or Refund button (one transaction
+  per market). There is no batch claim, because the contract pays out per market.
 - Strip: Staked in open markets · Won (claimed) · Refunded · Record *4 won · 2 lost · 1 refunded*.
   The record is labelled *Past results don't predict future ones.*
 - **Needs action** (claims and refunds) comes first, then **Open positions** (with the rope and the
@@ -396,7 +405,7 @@ Ruled T-frame on one walnut ground:
 | **Status pill** | 22px, 12px text, pale-on-dark pairs from §2.2 | Same |
 | **Tabs** | Underline on a 1px rule, 2px bone indicator | Scroll sideways in their own row |
 | **Table** | 12px grey sentence-case header, 52px rows, numbers right | Two-line rows. Fields move to line 2, never dropped |
-| **Confirm sheet** | Inline panel in the action column | Bottom sheet over a 60% walnut scrim (shadow allowed: it floats) |
+| **Confirm step** | Inline in the action panel: the terms list, then the stake button | Same, directly under the slip |
 | **Transaction status** | Inline line under the action: wallet → pending (hash) → confirmed / failed | Same |
 | **Wallet button and menu** | In the top bar behind the divider | Short form in the top bar. The menu is a sheet |
 | **Stepper** (live receipt, create) | 44px − / value / + | Same |
