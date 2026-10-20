@@ -1,0 +1,95 @@
+/* TrueUp tokens. docs/FRONTEND.md §2 is the source for every value here. */
+:root {
+  /* page: the walnut table, the bone slip, one tan accent */
+  --bg: #2b2216;
+  --surface: #382d1e;
+  --ink: #e4e2da;
+  --muted: #a39a8b;
+  --accent: #bda38b;
+  --accent-strong: #cdb59e;
+  --accent-ink: #2b2216;
+  --paper: #e4e2da;
+  --paper-2: #d6cbbd;
+  --paper-ink: #2b2216;
+  --paper-muted: #5c4f3e;
+  --field-1: #bda38b;
+  --field-1-ink: #1c150d;
+  --field-1-step: #ab9079;
+
+  /* app: one walnut ground, elevation by lightness alone */
+  --ground: #241c12;
+  --app-surface: #30261a;
+  --raised: #3d3122;
+  --rule: #3a2e20;
+  --control: #6a5a45;
+  --text: #ece9e1;
+  --app-muted: #c2b8a6;
+  --faint: #ab9f8b;
+  --primary: #ece9e1;
+  --primary-hover: #ffffff;
+  --primary-ink: #241c12;
+  --side-a: #ece9e1;
+  --side-b: #bda38b;
+  --positive: #a8cf8e;
+  --pill-positive-bg: #2c3520;
+  --negative: #f0a08a;
+  --pill-negative-bg: #47251b;
+  --warning: #e8c46e;
+  --pill-warning-bg: #40331a;
+  --pill-neutral-bg: #3d3122;
+
+  --font: "Switzer", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  --step-title: clamp(1.75rem, 1.2rem + 1.4vw, 2.5rem);
+  --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
+  --step-display: clamp(2.5rem, 0.5rem + 4.2vw, 5rem);
+
+  --margin: clamp(1rem, 2.2vw, 2rem);
+  --gutter: clamp(0.75rem, 1.4vw, 1.5rem);
+  --section: clamp(5rem, 10vw, 11rem);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --t-press: 140ms;
+  --t-hover: 180ms;
+  --t-ui: 240ms;
+  --t-reveal: 800ms;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: var(--step-body);
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4, p, figure, blockquote, ul, ol, dl, dd { margin: 0; }
+h1, h2, h3, h4 { font-weight: 600; text-wrap: balance; }
+ul[class], ol[class] { padding: 0; list-style: none; }
+img, svg, video { display: block; max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; letter-spacing: inherit; }
+button { background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; }
+p { text-wrap: pretty; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.nums { font-variant-numeric: tabular-nums; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* development-only notice: shown whenever fixture data is on screen */
+.fixture-notice {
+  padding: 7px var(--margin);
+  background: var(--pill-warning-bg); color: var(--warning);
+  font-size: 13px; line-height: 18px;
+}

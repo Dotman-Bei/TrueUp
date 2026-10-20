@@ -7,3 +7,5 @@ out/
 .taste-skill/inspect/
 .taste-skill/**/inspect*/
 *.log
+*.tsbuildinfo
+next-env.d.ts
