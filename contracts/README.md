@@ -64,7 +64,14 @@ other than 968, 677 and a local node. It prints the address and deploy block for
 node web/scripts/sync-abi.mjs
 ```
 
-Mainnet waits on the PRD's legal, policy and independent security review.
+Mainnet (chain 677) was deployed on 2026-10-25 as a capped launch with `MAX_STAKE=1000000000000000000`
+(1 BOT), before the PRD's legal, policy and security reviews. The network enforces a 20 gwei minimum gas
+price, and the deploy uses about 1.93M gas, so about 0.039 BOT. Passing `--gas-estimate-multiplier 103`
+keeps the balance the wallet must hold close to that:
+
+```bash
+MAX_STAKE=1000000000000000000 forge script script/Deploy.s.sol --rpc-url botchain --broadcast   --gas-estimate-multiplier 103 --verify --verifier blockscout --verifier-url https://scan.botchain.ai/api/
+```
 
 ## Local node
 

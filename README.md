@@ -8,13 +8,18 @@ sides, a fixed stake per person and a deadline. Everyone who joins sends exactly
 BOT to a smart contract. After the deadline the creator confirms what happened, and the winners each claim an
 equal share of the pot. If the creator never confirms, everyone takes their stake back.
 
-Live on **Bohr testnet** (chain 968). Test BOT only; not deployed to mainnet.
+Live on **BOT Chain mainnet** as a capped launch: real BOT, at most **1 BOT per person per market**, on a
+contract that hasn't had an independent audit. Only stake what you can afford to lose.
 
-| | |
-| --- | --- |
-| Contract | [`0xc46E080279C5d3637a41d5B30fF8bD0a24FF0B04`](https://scan.bohr.life/address/0xc46e080279c5d3637a41d5b30ff8bd0a24ff0b04), source verified |
-| Deployed | 2026-10-20, block 27529370 |
-| Protocol fee | 0.1% of settled pots (10 bps), 5% hard cap in the contract, nothing on refunds |
+| | BOT mainnet (chain 677) | Bohr testnet (chain 968) |
+| --- | --- | --- |
+| Contract | [`0xf30B37E224B7A6BfdC5ce5CD9f2f2805a9f945bE`](https://scan.botchain.ai/address/0xf30b37e224b7a6bfdc5ce5cd9f2f2805a9f945be) | [`0xc46E080279C5d3637a41d5B30fF8bD0a24FF0B04`](https://scan.bohr.life/address/0xc46e080279c5d3637a41d5b30ff8bd0a24ff0b04) |
+| Deployed | 2026-10-25, block 27946589 | 2026-10-20, block 27529370 |
+| Stake cap | 1 BOT per person | 100 BOT per person |
+| Source verified | yes | yes |
+
+Both charge a protocol fee of 0.1% of settled pots (10 bps), with a 5% hard cap in the contract and nothing on
+refunds.
 
 ## The problem
 
@@ -149,7 +154,8 @@ on every market page and before every stake. Only join markets made by people yo
 
 **Owner powers:** set the fee for new markets (up to 5%), set the maximum stake for new markets, withdraw
 accrued fees, and transfer ownership in two steps. The owner can't touch stakes, outcomes or existing
-markets. The current owner is the deployer wallet.
+markets. On both networks the owner is the deployer wallet, `0x1727eF2a5622B8559Af818A942dBFd59493e175E`, and its key
+sits in a local file. Moving ownership to a hardware wallet or multisig is a recommended next step.
 
 **Privacy:** none, by design. Questions, sides, wallets, stakes and outcomes are public on BOT Chain
 permanently. Sharing a link in a private chat doesn't make a market private. The create form asks people to
@@ -165,20 +171,24 @@ keep personal details out of questions.
 - Leaderboards count settled markets only, by wallet. Wallets can be cheaply created, so rankings are
   informational, not reputation.
 - Not audited. The contract has a full test suite but no independent review yet.
-- **Testnet only.** Participants can lose stakes in a validly settled market. Running it with real BOT needs
-  a legal and policy review for the target jurisdictions (gambling and contest rules, age limits, consumer
-  protection, disclosures) and an independent security review first. TrueUp makes no claim to be licensed
-  or compliant anywhere.
+- **Mainnet without the reviews.** The PRD asked for a legal and policy review (gambling and contest rules, age
+  limits, consumer protection, disclosures) and an independent security review before real stakes. Neither
+  has happened. The mainnet deployment is a capped launch instead: 1 BOT per person per market, with the
+  risks stated in the app. Participants can lose stakes in a validly settled market. TrueUp makes no claim to
+  be licensed or compliant anywhere.
 
 ## Status
 
 | | |
 | --- | --- |
-| Contract written, tested (35 tests) and deployed to Bohr testnet, source verified | done |
+| Contract written and tested (35 tests) | done |
+| Deployed and verified on Bohr testnet | done |
+| On-chain end-to-end on Bohr: create, join, settle, claim, one-sided refund, every repeat rejected | done |
+| Deployed and verified on BOT mainnet, capped at 1 BOT per person | done |
 | All six routes built, reading the live contract | done |
-| End-to-end flows with real wallets (settle and claim; timeout and refund) | next |
-| Real-user testnet pilot and feedback | planned |
-| Independent review, legal and policy review, mainnet | not started |
+| Browser-wallet click-through on mainnet | next |
+| Real-user pilot and feedback | planned |
+| Independent security review, legal and policy review | not started |
 
 ## Credits
 
