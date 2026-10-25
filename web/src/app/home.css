@@ -363,6 +363,10 @@
   .footer__menu:hover a { color: var(--muted); }
   .footer__menu a:hover { color: var(--ink); transform: translateX(12px); }
 }
+.footer__chain .built-on__name { font-size: var(--step-lead); font-weight: 500; letter-spacing: -0.015em; }
+.footer__chain .built-on__name strong { font-weight: 600; }
+.footer__chain .built-on__links { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 10px; }
+.footer__chain a { text-underline-offset: 0.2em; }
 .footer__facts { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .footer__facts a { overflow-wrap: anywhere; }
 .footer__credits { max-width: 60ch; }

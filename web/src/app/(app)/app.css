@@ -345,6 +345,14 @@ button.stub-btn:not(:disabled):active { transform: scale(0.99); }
 .ldefs dd { margin: 2px 0 0; }
 @media (max-width: 1000px) { .lgrid { grid-template-columns: minmax(0, 1fr); } .lgrid > aside { position: static; } }
 
+/* ---------- footer: built on BOT Chain ---------- */
+.app-footer { padding: 16px var(--pad) 20px; border-top: 1px solid var(--rule); color: var(--app-muted); }
+.app-footer .built-on { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 24px; }
+.app-footer .built-on__name strong { color: var(--text); font-weight: 600; }
+.app-footer .built-on__links { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+.app-footer a { color: var(--text); text-decoration: underline; text-decoration-color: var(--control); text-underline-offset: 3px; }
+.app-footer a:hover { text-decoration-color: currentColor; }
+
 /* ---------- phone and tablet: the sidebar folds into a bottom bar ---------- */
 .bottombar { display: none; }
 @media (max-width: 860px) {
@@ -355,7 +363,8 @@ button.stub-btn:not(:disabled):active { transform: scale(0.99); }
   .topbar__object { display: none; }
   .topbar__wallet { padding-right: 16px; border-left: 0; padding-left: 0; }
   .wallet__balance, .wallet__hint { display: none; }
-  .canvas { padding: 16px 16px 96px; }
+  .canvas { padding: 16px 16px 40px; }
+  .app-footer { padding: 16px 16px 88px; }
   .grid6 > * { grid-column: 1 / -1; }
   .bottombar {
     position: fixed; z-index: 20; inset: auto 0 0 0;

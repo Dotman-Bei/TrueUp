@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { BuiltOnBot } from "@/components/BuiltOnBot";
 import { AskForm } from "@/components/home/AskForm";
 import { Endings } from "@/components/home/Endings";
 import { HomeNav } from "@/components/home/HomeNav";
@@ -191,10 +192,10 @@ export default function Home() {
               ))}
             </ul>
           </nav>
+          <BuiltOnBot className="footer__chain" />
           <div className="footer__facts">
             <p>
-              Network: {network.label}, chain {network.chain.id}, explorer{" "}
-              <a href={network.chain.blockExplorers.default.url}>{network.chain.blockExplorers.default.url.replace("https://", "")}</a>
+              Network: {network.label}, chain {network.chain.id}
             </p>
             <p>
               Contract:{" "}

@@ -136,9 +136,9 @@ export function MarketsList() {
                       `${formatBot(m.stake * BigInt(m.countA + m.countB), 2)} BOT pool`,
                       m.deadline > now ? `closes ${deadlineText(m, now)}` : `closed ${deadlineText(m, now)}`,
                     ].map((part, i) => (
-                      <span key={i} className="nowrap">
+                      <span key={i}>
                         {i > 0 && " · "}
-                        {part}
+                        <span className="nowrap">{part}</span>
                       </span>
                     ))}
                   </span>

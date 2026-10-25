@@ -61,6 +61,9 @@ export const network = {
   label: networkKey === "mainnet" ? "BOT Chain" : networkKey === "local" ? "a local node" : "Bohr testnet",
 };
 
+/** BOT Chain's official website, linked in every footer. */
+export const BOT_CHAIN_SITE = "https://www.botchain.ai";
+
 /** Proposed default fee (PRD 6.10). The live value is read from each market, captured at creation. */
 export const DEFAULT_FEE_BPS = 10;
 export const MAX_FEE_BPS = 500;
