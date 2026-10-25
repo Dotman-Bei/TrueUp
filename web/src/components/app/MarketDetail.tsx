@@ -159,6 +159,7 @@ function ActionPanel({ m, phase, now, picked, setPicked, viewer, position }: { m
               <li className="nums">The pool becomes {formatBot(pool + m.stake, 2)} BOT.</li>
               <li>If your side wins, you share the pot minus the {feePercent(m.feeBps)} fee with the others on your side.</li>
               <li>If it loses, your stake goes to the winners.</li>
+              {!network.isTestnet && <li>This is real BOT on a contract that hasn&rsquo;t been independently audited. Only stake what you can afford to lose.</li>}
               <li>
                 {isCreator ? "You" : shortAddress(m.creator)} decide{isCreator ? "" : "s"} the result after {formatUtc(m.deadline)}. If that doesn&rsquo;t happen within 72 hours, anyone can open refunds.
               </li>

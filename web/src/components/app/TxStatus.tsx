@@ -1,4 +1,4 @@
-import { explorerTx } from "@/lib/config";
+import { explorerTx, network } from "@/lib/config";
 import type { TxState } from "@/lib/tx";
 
 /** The one line under an action: wallet → pending (with its hash) → confirmed, or why it failed. */
@@ -11,7 +11,7 @@ export function TxStatus({ state, done }: { state: TxState; done?: string }) {
   );
   return (
     <p className={`tx tx--${state.status}`} role="status" aria-live="polite">
-      {state.status === "switching" && "Switch to Bohr testnet in your wallet."}
+      {state.status === "switching" && `Switch to ${network.label} in your wallet.`}
       {state.status === "wallet" && "Confirm in your wallet."}
       {state.status === "pending" && (
         <>

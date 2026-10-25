@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { decodeEventLog } from "viem";
+import { useReadContract } from "wagmi";
 import { trueUpAbi } from "@/lib/abi";
-import { DEFAULT_FEE_BPS, LIMITS, network } from "@/lib/config";
+import { DEFAULT_FEE_BPS, LIMITS, network, useFixtures } from "@/lib/config";
 import { keys } from "@/lib/data";
 import { feePercent, formatBot, parseBot, shortAddress } from "@/lib/money";
 import { formatSpan, formatUtc, nowSeconds } from "@/lib/time";
@@ -50,6 +51,16 @@ export function CreateMarket() {
     if (q) setQuestion(q.slice(0, LIMITS.question));
   }, []);
 
+  // the stake cap is the owner's setting on the contract; the config value only stands in before it loads
+  const cap = useReadContract({
+    address: network.contract ?? undefined,
+    abi: trueUpAbi,
+    functionName: "maxStake",
+    chainId: network.chain.id,
+    query: { enabled: Boolean(network.contract) && !useFixtures },
+  });
+  const maxWei = (cap.data as bigint | undefined) ?? parseBot(LIMITS.maxStake)!;
+  const maxLabel = formatBot(maxWei, 6, { trim: true });
   const stake = parseBot(stakeText);
   const deadline = useMemo(() => {
     if (now === null) return null;
@@ -72,15 +83,15 @@ export function CreateMarket() {
     else if (optionB.length > LIMITS.option || bytes(optionB) > LIMITS.optionBytes) e.b = `Keep it to ${LIMITS.option} characters.`;
     else if (optionA.trim() && norm(optionA) === norm(optionB)) e.b = "The two sides have to say different things.";
     const min = parseBot(LIMITS.minStake)!;
-    const max = parseBot(LIMITS.maxStake)!;
+    const max = maxWei;
     if (stake === null) e.stake = "Enter an amount like 0.2.";
     else if (stake < min) e.stake = `The smallest stake is ${LIMITS.minStake} BOT.`;
-    else if (stake > max) e.stake = `The largest stake is ${LIMITS.maxStake} BOT.`;
+    else if (stake > max) e.stake = `The largest stake is ${maxLabel} BOT.`;
     if (deadline === null) e.deadline = "Pick when entries close.";
     else if (now !== null && deadline - now < LIMITS.minDurationSeconds) e.deadline = "Entries have to stay open for at least an hour.";
     else if (now !== null && deadline - now > LIMITS.maxDurationSeconds) e.deadline = "Entries can stay open for 30 days at most.";
     return e;
-  }, [question, optionA, optionB, stake, deadline, now]);
+  }, [question, optionA, optionB, stake, deadline, now, maxWei, maxLabel]);
   const valid = Object.keys(errors).length === 0;
   const show = (k: keyof typeof errors, filled: boolean) => (touched || filled) && errors[k];
 
@@ -194,7 +205,7 @@ export function CreateMarket() {
                 <span>BOT</span>
               </div>
               <p id="stake-hint" className={show("stake", true) ? "field__error" : "field__hint"}>
-                {show("stake", true) || `Everyone who joins pays exactly this. ${LIMITS.minStake} to ${LIMITS.maxStake} BOT.`}
+                {show("stake", true) || `Everyone who joins pays exactly this. ${LIMITS.minStake} to ${maxLabel} BOT.`}
               </p>
             </div>
             <fieldset className="field">

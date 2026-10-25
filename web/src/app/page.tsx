@@ -46,7 +46,7 @@ const itinerary: { when: string; rows: [string, string][] }[] = [
   },
 ];
 
-const questions: [string, string][] = [
+const questions = [
   ["Who decides the result?", "The person who created the market. TrueUp records their decision on BOT Chain, but the chain can’t check whether it is true. Only stake in pools where you trust the creator."],
   ["What if they never settle?", "Seventy-two hours after the deadline, anyone can open refunds. Every participant then takes back exactly what they staked."],
   ["What does it cost?", "A 0.1% protocol fee on the pot of settled markets. It is fixed when the market is created, the contract caps it at 5%, and refunded markets pay nothing. You also pay network gas in BOT."],
@@ -57,10 +57,12 @@ const questions: [string, string][] = [
   ["Can I join after the deadline?", "No. The contract rejects late entries even if a countdown on your screen is behind."],
   ["Is my market private?", "No. The question, the sides, every wallet and every stake are public on BOT Chain. Keep names and private details out of the question."],
   ["What happens to rounding dust?", "Payouts are calculated in wei. Any remainder that can’t be split equally is handled by a documented contract rule. It is never left stuck in the pool."],
-  ["Is this real money?", "Not yet. TrueUp runs on Bohr testnet, and test BOT has no value. Mainnet waits on a legal and security review."],
-  ["Which wallet do I need?", "Any EVM wallet that can add a network. TrueUp asks to switch to Bohr testnet (chain 968) before every transaction."],
+  network.isTestnet
+    ? ["Is this real money?", `Not here. This copy of TrueUp runs on ${network.label}, where test BOT has no value.`]
+    : ["Is this real money?", "Yes. Stakes are real BOT on BOT Chain, and you can lose them. The contract hasn’t had an independent audit yet, so stakes are capped per person. Only stake what you can afford to lose."],
+  ["Which wallet do I need?", `Any EVM wallet that can add a network. TrueUp asks to switch to ${network.label} (chain ${network.chain.id}) before every transaction.`],
   ["Is there a TrueUp token?", "No. Stakes, payouts and gas are all native BOT."],
-];
+] as [string, string][];
 
 const menu = [
   { href: "/markets", label: "Markets" },
@@ -100,7 +102,7 @@ export default function Home() {
             <p className="slip__terms nums">0.2 BOT each · closes Saturday 18:00 UTC</p>
           </div>
           <div className="slip__foot">
-            <span className="slip__credit">Example slip · {network.label}, test BOT only</span>
+            <span className="slip__credit">Example slip · {network.isTestnet ? `${network.label}, test BOT only` : "BOT Chain"}</span>
             <Link className="button button--ink" href="/create">
               Create a market
             </Link>
@@ -214,7 +216,11 @@ export default function Home() {
               </span>
             ))}
           </p>
-          <p className="footer__legal">Testnet only. Test BOT has no value. TrueUp is not licensed for real-stake use, and mainnet waits on legal and security review.</p>
+          <p className="footer__legal">
+            {network.isTestnet
+              ? "Testnet only. Test BOT has no value."
+              : "Stakes are real BOT and can be lost. TrueUp is unaudited software, isn’t licensed anywhere, and makes no promise that prediction pools are legal where you are. Check your local rules and only take part if you’re of legal age."}
+          </p>
         </div>
       </footer>
     </main>

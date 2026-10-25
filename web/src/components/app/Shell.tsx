@@ -122,7 +122,7 @@ function WalletArea() {
         <>
           <span className="pill warn">Wrong network</span>
           <button className="btn" type="button" disabled={switching} onClick={() => switchChain({ chainId: network.chain.id })}>
-            {switching ? "Check your wallet" : "Switch to Bohr"}
+            {switching ? "Check your wallet" : network.isTestnet ? "Switch to Bohr" : "Switch to BOT Chain"}
           </button>
         </>
       )}
