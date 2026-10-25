@@ -4,3 +4,5 @@ broadcast/*/31337/
 .env
 broadcast/**/dry-run/
 broadcast/**/run-[0-9]*.json
+.test-wallets.env
+script/.test-phase2.sh

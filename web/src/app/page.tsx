@@ -87,6 +87,7 @@ export default function Home() {
         <HomeNav />
         <div className="slip hero__slip">
           <h1 className="slip__title">
+            <span className="sr-only">TrueUp: </span>
             <span data-rise style={{ "--i": 0 } as React.CSSProperties}>Bets</span>{" "}
             <span data-rise style={{ "--i": 1 } as React.CSSProperties}>between</span>{" "}
             <span data-rise style={{ "--i": 2 } as React.CSSProperties}>friends</span>
