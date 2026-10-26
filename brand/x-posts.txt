@@ -1,0 +1,75 @@
+=== THREAD 1/6 ===
+TrueUp is live on BOT Chain mainnet.
+
+Two-outcome prediction pools for friends and communities: everyone stakes the same native BOT, the creator settles after the deadline, and winners split the pot on-chain.
+
+https://true-up-lime.vercel.app
+
+A technical overview 🧵
+=== THREAD 2/6 ===
+How a market works:
+
+• The creator sets a question, two sides, a fixed stake and a deadline
+• Participants pick a side and send exactly that stake
+• The contract closes entries at the deadline
+• The creator confirms the result and winners claim their share
+=== THREAD 3/6 ===
+Payouts are deterministic.
+
+Every stake is held in contract escrow. On settlement, a 0.1% protocol fee is taken (fixed per market at creation, hard-capped at 5%) and each winner claims an equal share of the rest.
+
+Rounding dust joins the fee balance. Nothing is stranded.
+=== THREAD 4/6 ===
+Safety paths enforced on-chain:
+
+• Not settled within 72h of the deadline: anyone can open refunds
+• No one took the other side: refundable at the deadline, no fee
+• Payouts are pull-based and claimable once per wallet
+• Status only moves forward; results are final
+=== THREAD 5/6 ===
+Trust model, stated plainly:
+
+The market creator reports the outcome. BOT Chain enforces who may report, when, and how funds move. It cannot verify real-world events.
+
+Join pools created by people you trust.
+=== THREAD 6/6 ===
+Launch status: capped at 1 BOT per participant per market. Source verified on BotScan. An independent audit has not been completed yet.
+
+Contract: 0xf30B37E224B7A6BfdC5ce5CD9f2f2805a9f945bE
+
+Code: https://github.com/Dotman-Bei/TrueUp
+=== POST 1 ===
+TrueUp's escrow contract is verified on BotScan.
+
+Read the source, the events and every market transaction directly on BOT Chain:
+https://scan.botchain.ai/address/0xf30B37E224B7A6BfdC5ce5CD9f2f2805a9f945bE
+
+No backend holds funds. The contract is the only custodian.
+=== POST 2 ===
+TrueUp fee policy:
+
+• 0.1% of the pot, on settled markets only
+• Rate captured when a market is created, so later changes never apply retroactively
+• 5% hard cap enforced by the contract
+• Refunded markets pay nothing
+=== POST 3 ===
+What happens if a market creator disappears?
+
+72 hours after the deadline, any wallet can switch the market to refunds. Every participant then claims back exactly what they staked, with no fee.
+
+No admin action or backend is needed to trigger it.
+=== POST 4 ===
+Every TrueUp market has a stable link.
+
+Paste it into Telegram, Discord or WhatsApp. Anyone can read the question, both sides, the stake, the deadline and the pool before connecting a wallet.
+
+https://true-up-lime.vercel.app/markets
+=== POST 5 ===
+TrueUp contract testing:
+
+• 35 Foundry tests
+• 1,000-run fuzzing: payouts plus fees always equal the pot; refunds always return every stake
+• Reentrant double-claim attempt blocked
+• 100% line coverage
+
+https://github.com/Dotman-Bei/TrueUp

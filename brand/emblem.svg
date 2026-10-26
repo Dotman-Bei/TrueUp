@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512" role="img" aria-label="TrueUp">
+  <title>TrueUp</title>
+  <!-- The slip: a ticket with a V notch cut into each side -->
+  <path d="M12 27 H88 V42 L80 50 L88 58 V73 H12 V58 L20 50 L12 42 Z" fill="#241c12"/>
+  <!-- One rope, two sides: bone on the left, tan on the right -->
+  <rect x="24" y="46.5" width="26" height="7" fill="#eceae6"/>
+  <rect x="50" y="46.5" width="26" height="7" fill="#bda38b"/>
+  <!-- The knot at the centre of the rope: the mark that decides the result -->
+  <path d="M50 41 L59 50 L50 59 L41 50 Z" fill="#241c12"/><path d="M50 43.5 L56.5 50 L50 56.5 L43.5 50 Z" fill="#eceae6"/>
+</svg>

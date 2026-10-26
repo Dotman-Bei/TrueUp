@@ -1,0 +1,55 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600&display=block">
+<style>
+html,body{margin:0;width:1600px;height:900px;background:#241c12;overflow:hidden}
+.c{position:relative;width:1600px;height:900px;font-family:"Switzer",system-ui,sans-serif;color:#eceae6}
+.word{position:absolute;left:96px;top:118px;font-weight:600;font-size:150px;letter-spacing:-0.045em;line-height:1}
+.lead{position:absolute;left:100px;top:300px;width:600px;font-weight:500;font-size:40px;line-height:1.22;letter-spacing:-0.015em}
+.lead span{color:#bda38b}
+.facts{position:absolute;left:100px;top:520px;display:grid;gap:14px;font-size:27px;color:#eceae6}
+.facts b{display:inline-block;width:150px;font-weight:500;color:#bda38b}
+/* the slip */
+.slip{position:absolute;right:96px;top:110px;width:640px;padding:44px 48px 38px;background:#e6e4df;color:#2b2216;
+  clip-path:polygon(0 0,100% 0,100% calc(50% - 20px),calc(100% - 20px) 50%,100% calc(50% + 20px),100% 100%,0 100%,0 calc(50% + 20px),20px 50%,0 calc(50% - 20px))}
+.q{font-weight:600;font-size:42px;line-height:1.1;letter-spacing:-0.025em}
+.meta{margin-top:14px;font-size:22px;color:#5c4f3e}
+.stubs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:30px}
+.stub{padding:20px 22px;font-weight:600;font-size:25px;line-height:1.2}
+.stub small{display:block;margin-top:6px;font-weight:500;font-size:20px;opacity:.85}
+.a{background:#2b2216;color:#e6e4df}.b{background:#bda38b;color:#2b2216}
+.rope{position:relative;display:flex;gap:4px;height:12px;margin-top:26px}
+.rope i{display:block}.ra{width:57%;background:#2b2216}.rb{flex:1;background:#bda38b}
+.knot{position:absolute;left:57%;top:50%;width:22px;height:22px;background:#e6e4df;border:5px solid #2b2216;transform:translate(-50%,-50%) rotate(45deg)}
+.pool{display:flex;justify-content:space-between;margin-top:20px;font-size:22px;color:#5c4f3e}
+.pool b{color:#2b2216;font-weight:600}
+.perf{margin-top:28px;border-top:7px dotted #241c12;padding-top:20px;display:flex;justify-content:space-between;font-size:22px;color:#5c4f3e}
+/* footer rope across the whole banner */
+.line{position:absolute;left:0;right:0;bottom:96px;height:10px;display:flex}
+.line .l{width:50%;background:#eceae6}.line .r{width:50%;background:#bda38b}
+.lk{position:absolute;left:50%;bottom:101px;width:34px;height:34px;background:#eceae6;transform:translate(-50%,50%) rotate(45deg);box-shadow:0 0 0 8px #241c12}
+.url{position:absolute;left:100px;bottom:28px;font-size:26px;font-weight:500}
+.ca{position:absolute;right:96px;bottom:28px;font-size:22px;color:#bda38b;font-variant-numeric:tabular-nums}
+</style></head><body><div class="c">
+<div class="word">TrueUp</div>
+<div class="lead">Two-outcome prediction pools, <span>live on BOT Chain mainnet.</span></div>
+<div class="facts">
+  <div><b>Stake</b>Equal, native BOT</div>
+  <div><b>Escrow</b>Held by the contract</div>
+  <div><b>Fee</b>0.1% of settled pots</div>
+  <div><b>Refunds</b>Open to anyone after 72h</div>
+</div>
+<div class="slip">
+  <div class="q">Will Maya finish the 5K on Saturday?</div>
+  <div class="meta">Example market · closes Sat 18:00 UTC</div>
+  <div class="stubs">
+    <div class="stub a">She finishes<small>4 people · 0.80 BOT</small></div>
+    <div class="stub b">She does not finish<small>3 people · 0.60 BOT</small></div>
+  </div>
+  <div class="rope"><i class="ra"></i><i class="rb"></i><span class="knot"></span></div>
+  <div class="pool"><span><b>1.40 BOT</b> in the pool</span><span>0.2 BOT each</span></div>
+  <div class="perf"><span>Each winner claims</span><b style="color:#2b2216">0.349650 BOT</b></div>
+</div>
+<div class="line"><i class="l"></i><i class="r"></i></div><span class="lk"></span>
+<div class="url">true-up-lime.vercel.app</div>
+<div class="ca">CA 0xf30B37E224B7A6BfdC5ce5CD9f2f2805a9f945bE</div>
+</div></body></html>
