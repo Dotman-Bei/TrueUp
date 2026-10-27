@@ -19,6 +19,8 @@ export function useNoWallet() {
 export function ConnectButton({ className }: { className?: string }) {
   const wallet = useWallet();
   const { connect, connectors, isPending, error } = useConnect();
+  // every hook runs on every render, before any early return: the wallet can connect between renders
+  const noWallet = useNoWallet();
   const injected = connectors[0];
 
   if (wallet.connected && wallet.address) {
@@ -30,7 +32,6 @@ export function ConnectButton({ className }: { className?: string }) {
     );
   }
 
-  const noWallet = useNoWallet();
   return (
     <button
       type="button"
